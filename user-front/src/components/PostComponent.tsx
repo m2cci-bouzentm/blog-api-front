@@ -40,7 +40,7 @@ const PostComponent = () => {
         </Avatar>
         <div>
           <div className="text-sm font-bold"> Shadcn </div>
-          <div className="text-gray-500 text-sm "> @Shadcn </div>
+          <div className="text-gray-500 text-sm cursor-pointer hover:underline"> @Shadcn </div>
         </div>
       </div>
 
