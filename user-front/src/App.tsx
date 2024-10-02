@@ -12,6 +12,7 @@ import LoginComponent from './components/LoginComponent';
 import SignUpComponent from './components/SignUpComponent';
 import AuthenticatedNav from './components/AuthenticatedNav';
 import NotAuthenticatedNav from './components/NotAuthenticatedNav';
+import PostComponent from './components/PostComponent';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -38,13 +39,13 @@ function App() {
           </div>
         </NavigationMenu>
 
-        <main className="w-[60%] m-auto space-y-8">
+        <main className="w-[60%] flex flex-col m-auto space-y-8">
           <Routes>
             <Route path="/" element={<Navigate to="/posts" />}></Route>
             <Route path="/posts" element={<MainComponent />}></Route>
             <Route path="/login" element={<LoginComponent />}></Route>
             <Route path="/signup" element={<SignUpComponent />}></Route>
-            <Route path="/posts/:id" element={<SignUpComponent />}></Route>
+            <Route path="/posts/:id" element={<PostComponent />}></Route>
           </Routes>
         </main>
 
