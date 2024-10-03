@@ -1,15 +1,28 @@
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
-import { Form, FormDescription, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { User } from '@/types';
+interface LoginComponentProps {
+  setCurrentUser: (user: User) => void;
+  setIsLoggedIn: (userState: boolean) => void;
 
-const LoginComponent = () => {
-  const form = useForm();
+  // setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+interface LogInError {
+  message: string;
+}
+const LoginComponent = ({ setCurrentUser, setIsLoggedIn }: LoginComponentProps) => {
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+
+  const [logInError, setLogInError] = useState<LogInError | null>(null);
+
   const navigate = useNavigate();
+  const form = useForm();
 
   const handleUserLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,10 +34,16 @@ const LoginComponent = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password }),
     });
-    await res.json();
+    const logInRes = await res.json();
 
-    // TODO log in user AND redirect to /posts
-    //TODO Errors displaying
+    if (typeof logInRes.message !== 'undefined') {
+      return setLogInError(logInRes);
+    }
+
+    localStorage.setItem('userToken', logInRes.token);
+    setLogInError(null);
+    setCurrentUser(logInRes.user);
+    setIsLoggedIn(true);
     navigate('/');
   };
   return (
@@ -33,14 +52,12 @@ const LoginComponent = () => {
         <FormItem>
           <FormLabel htmlFor="username">Username</FormLabel>
           <Input placeholder="" id="username" type="text" name="username" ref={usernameRef} />
-          {/* <FormDescription>This is your public display name.</FormDescription> */}
         </FormItem>
-
         <FormItem>
           <FormLabel htmlFor="password">Password</FormLabel>
           <Input placeholder="" id="password" type="password" name="password" ref={passwordRef} />
-          {/* <FormDescription>This is your public display name.</FormDescription> */}
         </FormItem>
+        {logInError ? <FormMessage className="!m-0"> {logInError.message} </FormMessage> : null}
 
         <Button type="submit">Sign In</Button>
       </form>

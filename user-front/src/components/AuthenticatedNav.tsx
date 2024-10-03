@@ -2,15 +2,17 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Link } from 'react-router-dom';
 import React from 'react';
+import { User } from '@/types';
 
 interface AuthenticatedNavProps {
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+  setCurrentUser: (user: User | null) => void;
 }
-const AuthenticatedNav = ({ setIsLoggedIn }: AuthenticatedNavProps) => {
-  const handleUserLogOut = (e: React.MouseEvent): void => {
+const AuthenticatedNav = ({ setIsLoggedIn, setCurrentUser }: AuthenticatedNavProps) => {
+  const handleUserLogOut = (): void => {
     setIsLoggedIn(false);
-    console.log(e);
-    console.log('logging out');
+    setCurrentUser(null);
+    localStorage.removeItem('userToken');
   };
   return (
     <>
