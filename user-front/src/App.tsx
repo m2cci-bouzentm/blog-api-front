@@ -43,9 +43,10 @@ function App() {
           <Routes>
             <Route path="/" element={<Navigate to="/posts" />}></Route>
             <Route path="/posts" element={<MainComponent />}></Route>
+            <Route path="/posts/:id" element={<PostComponent />}></Route>
             <Route path="/login" element={<LoginComponent />}></Route>
             <Route path="/signup" element={<SignUpComponent />}></Route>
-            <Route path="/posts/:id" element={<PostComponent />}></Route>
+            <Route path="*" element={<Navigate to="posts" />} />
           </Routes>
         </main>
 

@@ -1,16 +1,24 @@
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
+import { Comment } from '@/types';
 
-const CommentComponent = () => {
+interface CommentComponentProps {
+  comment: Comment;
+}
+const CommentComponent = ({ comment }: CommentComponentProps) => {
+  //TODO comment DELETE && UPDATE
+
   return (
-    <div className="comment-container flex items-center space-x-4 !my-8">
+    <div data-id={comment.id} className="comment-container flex items-center space-x-4 !my-8">
       <Avatar>
         <AvatarImage src="https://github.com/shadcn.png" />
       </Avatar>
       <div>
-        <div className="text-gray-500 text-sm font-bold cursor-pointer hover:underline">
-          @shadcn
+        <div className="text-gray-500 text-sm">
+          <span className="font-bold cursor-pointer hover:underline">@shadcn</span>
+          <br />
+          <span>Published on {new Date(comment.publishedAt).toLocaleDateString()}</span>
         </div>
-        <p> Preview Mode for Headless CMS. Was Good !</p>
+        <p> {comment.content}</p>
       </div>
     </div>
   );

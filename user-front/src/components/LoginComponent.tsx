@@ -3,18 +3,29 @@ import { Button } from '@/components/ui/button';
 import { Form, FormDescription, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const LoginComponent = () => {
   const form = useForm();
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
 
-  const handleUserLogin = (e: React.FormEvent): void => {
+  const handleUserLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     const username = usernameRef.current?.value;
     const password = passwordRef.current?.value;
 
-    console.log(username, password);
+    const res = await fetch('http://localhost:3000/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password }),
+    });
+    await res.json();
+
+    // TODO log in user AND redirect to /posts
+    //TODO Errors displaying
+    navigate('/');
   };
   return (
     <Form {...form}>
