@@ -24,7 +24,6 @@ const CommentComponent = ({
 
   const updatedCommentRef = useRef<HTMLInputElement>(null);
 
-  //TODO comment DELETE && UPDATE
   const toggleMenu = () => {
     setIsCommentMenu(!isCommentMenu);
   };
@@ -109,19 +108,27 @@ const CommentComponent = ({
       )}
 
       {isEditingComment && (
-        <div className="comment-input space-x-4 flex items-center py-2 px-4 rounded-lg ">
-          <Input
-            id="comment-edit"
-            name="comment-edit"
-            type="text"
-            ref={updatedCommentRef}
-            className="border-[1px] h-[30px]"
-          />
-          <Button onClick={handleCommentEdit}>Edit</Button>
-          <Button onClick={closeCommentEditForm} variant="destructive">
-            Cancel
-          </Button>
-        </div>
+        <>
+          <div
+            id="overlay"
+            className="fixed left-[-500px] w-[300%] z-10 inset-0 bg-black bg-opacity-50"
+          ></div>
+          <div className="comment-edit-input absolute sm:relative space-x-4 z-20 flex items-center p-0 lg:py-2 lg:px-4 rounded-lg ">
+            <Input
+              id="comment-edit"
+              name="comment-edit"
+              type="text"
+              ref={updatedCommentRef}
+              className="border-[1px] h-[30px]"
+            />
+            <Button className="h-7 lg:h-10" onClick={handleCommentEdit}>
+              Edit
+            </Button>
+            <Button className="h-7 lg:h-10" onClick={closeCommentEditForm} variant="destructive">
+              Cancel
+            </Button>
+          </div>
+        </>
       )}
     </div>
   );

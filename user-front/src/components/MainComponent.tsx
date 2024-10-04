@@ -11,7 +11,7 @@ function truncateText(text: string): string {
 
 const CardComponent = (post: Post): React.ReactElement => (
   <Link key={post.id} to={post.id} className="text-inherit font-normal hover:text-inherit">
-    <Card className="p-6 w-[400px] h-[300px] cursor-pointer hover:scale-[101%] transition-all">
+    <Card className="p-3 md:p-6 w-[95%] lg:w-[400px] h-[300px] cursor-pointer hover:scale-[101%] transition-all">
       <div className="flex items-center">
         <Avatar>
           <AvatarImage src="https://github.com/shadcn.png" />
@@ -49,7 +49,7 @@ const MainComponent = () => {
         <h3>A blog built using vite & shadcn. Posts are written with TinyMCE.</h3>
       </div>
       <hr />
-      <div className="cards-container grid grid-cols-2 gap-y-8">
+      <div className="cards-container grid lg:justify-items-center grid-cols-1 lg:grid-cols-2 gap-y-8">
         {posts ? posts.map((post) => CardComponent(post)) : null}
       </div>
     </>

@@ -61,8 +61,8 @@ const PostComponent = ({ isLoggedIn, currentUser }: PostComponentProps) => {
   };
 
   return post ? (
-    <div className="px-32 self-center w-full space-y-8 relative tracking-tight">
-      <Link to="/" className="border-none absolute top-10 left-[-180px]">
+    <div className="px-2 md:px-8 lg:px-32 self-center w-full space-y-8 relative tracking-tight">
+      <Link to="/" className="hidden lg:block border-none absolute top-10 left-[-180px]">
         {'< See all posts'}
       </Link>
 
@@ -89,7 +89,7 @@ const PostComponent = ({ isLoggedIn, currentUser }: PostComponentProps) => {
         </div>
       </div>
 
-      <div className="text-justify leading-7 px-8">{post.content}</div>
+      <div className="text-justify leading-7 px-2 sm:px-8">{post.content}</div>
 
       <div className="comments-container space-y-4 !mt-24">
         <h2 className="text-3xl font-bold text-black">Comments</h2>

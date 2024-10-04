@@ -38,7 +38,7 @@ function App() {
   return (
     <>
       <Router>
-        <NavigationMenu className="w-[80%] self-center p-10 flex justify-between">
+        <NavigationMenu className="w-full lg:w-[80%] self-center py-5 px-2 lg:p-10 flex justify-between">
           <NavigationMenuList>
             <NavigationMenuItem className="text-[24px]">
               <Link className="font-bold" to="/">
@@ -60,7 +60,7 @@ function App() {
           </div>
         </NavigationMenu>
 
-        <main className="w-[60%] flex flex-col m-auto space-y-8">
+        <main className="w-[90%] sm:w-[75%] xl:w-[60%] flex flex-col m-auto space-y-8">
           <Routes>
             <Route path="/" element={<Navigate to="/posts" />}></Route>
             <Route path="/posts" element={<MainComponent />}></Route>

@@ -31,7 +31,7 @@ const AuthenticatedNav = ({
         />
       </Avatar>
       <span>{currentUser?.username}</span>
-      <Button onClick={handleUserLogOut} type="submit" asChild>
+      <Button className="h-7 lg:h-10" onClick={handleUserLogOut} type="submit" asChild>
         <Link to="/">Log Out</Link>
       </Button>
     </div>
