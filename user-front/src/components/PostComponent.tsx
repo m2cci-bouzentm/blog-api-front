@@ -16,7 +16,7 @@ const PostComponent = ({ isLoggedIn, currentUser }: PostComponentProps) => {
 
   const [post, setPost] = useState<Post | null>(null);
   const [comments, setComments] = useState<Comment[] | null>(null);
-  const [isComment, setIsComment] = useState<boolean>(false);
+  const [isCommentChange, setIsCommentChange] = useState<boolean>(false);
 
   useEffect(() => {
     const { id } = params;
@@ -25,10 +25,10 @@ const PostComponent = ({ isLoggedIn, currentUser }: PostComponentProps) => {
       .then((res) => res.json())
       .then((post) => {
         setPost(post);
-        setComments(post.comments.reverse());
+        setComments(post.comments);
       })
       .catch((err) => console.error(err));
-  }, [params, isComment]);
+  }, [params, isCommentChange]);
 
   const handleAddComment = async () => {
     if (!isLoggedIn) {
@@ -54,7 +54,7 @@ const PostComponent = ({ isLoggedIn, currentUser }: PostComponentProps) => {
       });
       await res.json();
 
-      setIsComment(isComment ? false : true);
+      setIsCommentChange(!isCommentChange);
     } catch (err) {
       console.log(err);
     }
@@ -95,7 +95,7 @@ const PostComponent = ({ isLoggedIn, currentUser }: PostComponentProps) => {
         <h2 className="text-3xl font-bold text-black">Comments</h2>
 
         {isLoggedIn && (
-          <div className="space-x-4 flex">
+          <div className="comment-input space-x-4 flex">
             <Input id="comment" name="comment" type="text" ref={commentRef} />
             <Button onClick={handleAddComment} type="submit">
               Add Comment
@@ -105,7 +105,14 @@ const PostComponent = ({ isLoggedIn, currentUser }: PostComponentProps) => {
 
         {comments
           ? comments.map((comment: Comment) => (
-              <CommentComponent key={comment.id} comment={comment} />
+              <CommentComponent
+                key={comment.id}
+                currentUser={currentUser}
+                post={post}
+                comment={comment}
+                isCommentChange={isCommentChange}
+                setIsCommentChange={setIsCommentChange}
+              />
             ))
           : null}
       </div>

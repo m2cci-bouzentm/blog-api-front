@@ -44,7 +44,6 @@ const SignUpComponent = ({ setCurrentUser, setIsLoggedIn }: LoginComponentProps)
     });
 
     const logInRes = await res.json();
-    console.log(logInRes);
 
     //Signup Errors display
     if (typeof logInRes.errors !== 'undefined') {
