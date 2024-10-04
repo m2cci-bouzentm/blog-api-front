@@ -6,7 +6,8 @@ import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { User } from '@/types';
 
-interface LoginComponentProps {
+interface SignUpComponentProps {
+  setUserToken: (token: string) => void;
   setCurrentUser: (user: User) => void;
   setIsLoggedIn: (userState: boolean) => void;
 }
@@ -18,7 +19,7 @@ interface SignUpError {
   value?: string;
 }
 
-const SignUpComponent = ({ setCurrentUser, setIsLoggedIn }: LoginComponentProps) => {
+const SignUpComponent = ({ setUserToken, setCurrentUser, setIsLoggedIn }: SignUpComponentProps) => {
   const usernameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -51,6 +52,7 @@ const SignUpComponent = ({ setCurrentUser, setIsLoggedIn }: LoginComponentProps)
     }
 
     localStorage.setItem('userToken', logInRes.token);
+    setUserToken(logInRes.token);
     setSignUpError(null);
     setCurrentUser(logInRes.user);
     setIsLoggedIn(true);

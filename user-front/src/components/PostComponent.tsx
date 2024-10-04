@@ -7,10 +7,11 @@ import CommentComponent from './CommentComponent';
 import { Comment, Post, User } from '@/types';
 
 interface PostComponentProps {
+  userToken: string | null;
   isLoggedIn: boolean;
   currentUser: User | null;
 }
-const PostComponent = ({ isLoggedIn, currentUser }: PostComponentProps) => {
+const PostComponent = ({ userToken, isLoggedIn, currentUser }: PostComponentProps) => {
   const params = useParams();
   const commentRef = useRef<HTMLInputElement>(null);
 
@@ -21,14 +22,18 @@ const PostComponent = ({ isLoggedIn, currentUser }: PostComponentProps) => {
   useEffect(() => {
     const { id } = params;
 
-    fetch(`http://localhost:3000/posts/${id}`)
+    fetch(`http://localhost:3000/posts/${id}`, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    })
       .then((res) => res.json())
       .then((post) => {
         setPost(post);
         setComments(post.comments);
       })
       .catch((err) => console.error(err));
-  }, [params, isCommentChange]);
+  }, [userToken, params, isCommentChange]);
 
   const handleAddComment = async () => {
     if (!isLoggedIn) {
@@ -45,6 +50,7 @@ const PostComponent = ({ isLoggedIn, currentUser }: PostComponentProps) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${userToken}`,
         },
         body: JSON.stringify({
           content: comment,
@@ -107,6 +113,7 @@ const PostComponent = ({ isLoggedIn, currentUser }: PostComponentProps) => {
           ? comments.map((comment: Comment) => (
               <CommentComponent
                 key={comment.id}
+                userToken={userToken}
                 currentUser={currentUser}
                 post={post}
                 comment={comment}

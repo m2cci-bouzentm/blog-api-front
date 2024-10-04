@@ -30,11 +30,14 @@ const CardComponent = (post: Post): React.ReactElement => (
   </Link>
 );
 
-const MainComponent = () => {
+interface MainComponentProps {
+  userToken: string | null;
+}
+const MainComponent = ({ userToken }: MainComponentProps) => {
   const [posts, setPosts] = useState<Post[] | null>(null);
 
   useEffect(() => {
-    fetch('http://localhost:3000/posts')
+    fetch('http://localhost:3000/posts', { headers: { Authorization: `Bearer ${userToken}` } })
       .then((res) => res.json())
       .then((posts) => {
         setPosts(posts);

@@ -5,13 +5,16 @@ import { Input } from './ui/input';
 import { Button } from './ui/button';
 
 interface CommentComponentProps {
+  userToken: string | null;
   currentUser: User | null;
   post: Post;
   comment: Comment;
   isCommentChange: boolean;
   setIsCommentChange: (state: boolean) => void;
 }
+
 const CommentComponent = ({
+  userToken,
   currentUser,
   post,
   comment,
@@ -43,6 +46,7 @@ const CommentComponent = ({
       method: 'PUT',
       headers: {
         'Content-Type': 'Application/json',
+        Authorization: `Bearer ${userToken}`,
       },
       body: JSON.stringify({
         content: updatedCommentRef.current?.value,
@@ -57,6 +61,9 @@ const CommentComponent = ({
   const handleCommentDelete = async () => {
     await fetch(`http://localhost:3000/posts/${post.id}/comments/${comment.id}`, {
       method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
     });
 
     setIsCommentMenu(false);

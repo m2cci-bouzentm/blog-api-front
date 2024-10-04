@@ -15,13 +15,17 @@ import NotAuthenticatedNav from './components/NotAuthenticatedNav';
 import PostComponent from './components/PostComponent';
 import { User } from './types';
 
+// TODO add settings page to update username, email, pw and profile picture
+// Attached user token to each request except for logging in and signing up
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [userToken, setUserToken] = useState<string | null>(null);
 
   useEffect(() => {
-    const userToken = localStorage.getItem('userToken');
+    const currentUserToken = localStorage.getItem('userToken');
     if (userToken) {
+      setUserToken(currentUserToken);
       fetch('http://localhost:3000/verifyLogin', {
         method: 'POST',
         headers: { Authorization: `Bearer ${userToken}` },
@@ -63,10 +67,16 @@ function App() {
         <main className="w-[90%] sm:w-[75%] xl:w-[60%] flex flex-col m-auto space-y-8">
           <Routes>
             <Route path="/" element={<Navigate to="/posts" />}></Route>
-            <Route path="/posts" element={<MainComponent />}></Route>
+            <Route path="/posts" element={<MainComponent userToken={userToken} />}></Route>
             <Route
               path="/posts/:id"
-              element={<PostComponent isLoggedIn={isLoggedIn} currentUser={currentUser} />}
+              element={
+                <PostComponent
+                  userToken={userToken}
+                  isLoggedIn={isLoggedIn}
+                  currentUser={currentUser}
+                />
+              }
             ></Route>
 
             {/* Access these routes only if user wasn't logged in */}
@@ -75,13 +85,18 @@ function App() {
                 <Route
                   path="/login"
                   element={
-                    <LoginComponent setIsLoggedIn={setIsLoggedIn} setCurrentUser={setCurrentUser} />
+                    <LoginComponent
+                      setUserToken={setUserToken}
+                      setIsLoggedIn={setIsLoggedIn}
+                      setCurrentUser={setCurrentUser}
+                    />
                   }
                 />
                 <Route
                   path="/signup"
                   element={
                     <SignUpComponent
+                      setUserToken={setUserToken}
                       setIsLoggedIn={setIsLoggedIn}
                       setCurrentUser={setCurrentUser}
                     />

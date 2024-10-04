@@ -6,6 +6,7 @@ import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { User } from '@/types';
 interface LoginComponentProps {
+  setUserToken: (token: string) => void;
   setCurrentUser: (user: User) => void;
   setIsLoggedIn: (userState: boolean) => void;
 }
@@ -13,7 +14,7 @@ interface LogInError {
   message: string;
 }
 
-const LoginComponent = ({ setCurrentUser, setIsLoggedIn }: LoginComponentProps) => {
+const LoginComponent = ({ setUserToken, setCurrentUser, setIsLoggedIn }: LoginComponentProps) => {
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
@@ -40,6 +41,7 @@ const LoginComponent = ({ setCurrentUser, setIsLoggedIn }: LoginComponentProps) 
     }
 
     localStorage.setItem('userToken', logInRes.token);
+    setUserToken(logInRes.token);
     setLogInError(null);
     setCurrentUser(logInRes.user);
     setIsLoggedIn(true);
