@@ -8,13 +8,11 @@ import { User } from '@/types';
 interface LoginComponentProps {
   setCurrentUser: (user: User) => void;
   setIsLoggedIn: (userState: boolean) => void;
-
-  // setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
 interface LogInError {
   message: string;
 }
+
 const LoginComponent = ({ setCurrentUser, setIsLoggedIn }: LoginComponentProps) => {
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -36,6 +34,7 @@ const LoginComponent = ({ setCurrentUser, setIsLoggedIn }: LoginComponentProps) 
     });
     const logInRes = await res.json();
 
+    // LogIn errors display
     if (typeof logInRes.message !== 'undefined') {
       return setLogInError(logInRes);
     }
@@ -57,7 +56,7 @@ const LoginComponent = ({ setCurrentUser, setIsLoggedIn }: LoginComponentProps) 
           <FormLabel htmlFor="password">Password</FormLabel>
           <Input placeholder="" id="password" type="password" name="password" ref={passwordRef} />
         </FormItem>
-        {logInError ? <FormMessage className="!m-0"> {logInError.message} </FormMessage> : null}
+        {logInError && <FormMessage className="!m-0"> {logInError.message} </FormMessage>}
 
         <Button type="submit">Sign In</Button>
       </form>

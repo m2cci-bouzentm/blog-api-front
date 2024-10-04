@@ -21,16 +21,18 @@ function App() {
 
   useEffect(() => {
     const userToken = localStorage.getItem('userToken');
-
-    fetch('http://localhost:3000/verifyLogin', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${userToken}` },
-    })
-      .then((res) => res.json())
-      .then((user) => {
-        setIsLoggedIn(true);
-        setCurrentUser(user);
-      });
+    if (userToken) {
+      fetch('http://localhost:3000/verifyLogin', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${userToken}` },
+      })
+        .then((res) => res.json())
+        .then((user) => {
+          setIsLoggedIn(true);
+          setCurrentUser(user);
+        })
+        .catch((err) => console.log(err));
+    }
   }, []);
 
   return (
@@ -47,7 +49,11 @@ function App() {
 
           <div className="space-x-6 flex not-authenticated">
             {isLoggedIn ? (
-              <AuthenticatedNav setIsLoggedIn={setIsLoggedIn} setCurrentUser={setCurrentUser} />
+              <AuthenticatedNav
+                currentUser={currentUser}
+                setIsLoggedIn={setIsLoggedIn}
+                setCurrentUser={setCurrentUser}
+              />
             ) : (
               <NotAuthenticatedNav />
             )}
@@ -58,8 +64,12 @@ function App() {
           <Routes>
             <Route path="/" element={<Navigate to="/posts" />}></Route>
             <Route path="/posts" element={<MainComponent />}></Route>
-            <Route path="/posts/:id" element={<PostComponent />}></Route>
+            <Route
+              path="/posts/:id"
+              element={<PostComponent isLoggedIn={isLoggedIn} currentUser={currentUser} />}
+            ></Route>
 
+            {/* Access these routes only if user wasn't logged in */}
             {!isLoggedIn && (
               <>
                 <Route
@@ -68,7 +78,15 @@ function App() {
                     <LoginComponent setIsLoggedIn={setIsLoggedIn} setCurrentUser={setCurrentUser} />
                   }
                 />
-                <Route path="/signup" element={<SignUpComponent />} />
+                <Route
+                  path="/signup"
+                  element={
+                    <SignUpComponent
+                      setIsLoggedIn={setIsLoggedIn}
+                      setCurrentUser={setCurrentUser}
+                    />
+                  }
+                />
               </>
             )}
 

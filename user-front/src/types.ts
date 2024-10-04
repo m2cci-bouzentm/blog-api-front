@@ -2,6 +2,7 @@ export interface Post {
   id: string;
   title: string;
   content: string;
+  author?: User;
   authorId: string;
   comments?: Comment[];
   isPublished: boolean;
@@ -13,6 +14,7 @@ export interface Comment {
   id: string;
   content: string;
   postId: string;
+  author?: User;
   authorId: string;
   publishedAt: Date;
 }

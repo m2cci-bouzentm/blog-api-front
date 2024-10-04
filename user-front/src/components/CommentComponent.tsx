@@ -14,7 +14,9 @@ const CommentComponent = ({ comment }: CommentComponentProps) => {
       </Avatar>
       <div>
         <div className="text-gray-500 text-sm">
-          <span className="font-bold cursor-pointer hover:underline">@shadcn</span>
+          <span className="font-bold cursor-pointer hover:underline">
+            @{comment.author?.username}
+          </span>
           <br />
           <span>Published on {new Date(comment.publishedAt).toLocaleDateString()}</span>
         </div>

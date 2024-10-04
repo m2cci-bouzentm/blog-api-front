@@ -4,9 +4,13 @@ import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
 import { Button } from './ui/button';
 import CommentComponent from './CommentComponent';
-import { Comment, Post } from '@/types';
+import { Comment, Post, User } from '@/types';
 
-const PostComponent = () => {
+interface PostComponentProps {
+  isLoggedIn: boolean;
+  currentUser: User | null;
+}
+const PostComponent = ({ isLoggedIn, currentUser }: PostComponentProps) => {
   const params = useParams();
   const commentRef = useRef<HTMLInputElement>(null);
 
@@ -27,6 +31,10 @@ const PostComponent = () => {
   }, [params, isComment]);
 
   const handleAddComment = async () => {
+    if (!isLoggedIn) {
+      return;
+    }
+
     const comment = commentRef.current?.value;
     if (commentRef.current) {
       commentRef.current.value = '';
@@ -40,11 +48,12 @@ const PostComponent = () => {
         },
         body: JSON.stringify({
           content: comment,
-          postId: post?.id,
-          authorId: '33333333-3333-3333-3333-333333333333', //TODO user.id
+          postId: params.id,
+          authorId: currentUser?.id,
         }),
       });
       await res.json();
+
       setIsComment(isComment ? false : true);
     } catch (err) {
       console.log(err);
@@ -68,11 +77,15 @@ const PostComponent = () => {
 
       <div className="avatar-box flex items-start space-x-2">
         <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" />
+          <AvatarImage
+            src={post.author?.avatarUrl ? post.author?.avatarUrl : 'https://github.com/shadcn.png'}
+          />
         </Avatar>
         <div>
-          <div className="text-sm font-bold"> Shadcn </div>
-          <div className="text-gray-500 text-sm cursor-pointer hover:underline"> @Shadcn </div>
+          <div className="text-sm font-bold"> {post.author?.username} </div>
+          <div className="text-gray-500 text-sm cursor-pointer hover:underline">
+            @{post.author?.username}
+          </div>
         </div>
       </div>
 
@@ -80,14 +93,20 @@ const PostComponent = () => {
 
       <div className="comments-container space-y-4 !mt-24">
         <h2 className="text-3xl font-bold text-black">Comments</h2>
-        <div className="space-x-4 flex">
-          <Input id="comment" name="comment" type="text" ref={commentRef} />
-          <Button onClick={handleAddComment} type="submit">
-            Add Comment
-          </Button>
-        </div>
+
+        {isLoggedIn && (
+          <div className="space-x-4 flex">
+            <Input id="comment" name="comment" type="text" ref={commentRef} />
+            <Button onClick={handleAddComment} type="submit">
+              Add Comment
+            </Button>
+          </div>
+        )}
+
         {comments
-          ? comments.map((comment) => <CommentComponent key={comment.id} comment={comment} />)
+          ? comments.map((comment: Comment) => (
+              <CommentComponent key={comment.id} comment={comment} />
+            ))
           : null}
       </div>
     </div>
