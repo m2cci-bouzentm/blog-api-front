@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
 import { Button } from './ui/button';
@@ -19,8 +19,13 @@ const PostComponent = ({ userToken, isLoggedIn, currentUser }: PostComponentProp
   const [comments, setComments] = useState<Comment[] | null>(null);
   const [isCommentChange, setIsCommentChange] = useState<boolean>(false);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const { id } = params;
+    if (id === 'new') {
+      navigate('/');
+    }
 
     fetch(`http://localhost:3000/posts/${id}`, {
       headers: {

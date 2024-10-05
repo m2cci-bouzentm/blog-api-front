@@ -24,7 +24,7 @@ function App() {
 
   useEffect(() => {
     const currentUserToken = localStorage.getItem('userToken');
-    if (userToken) {
+    if (currentUserToken) {
       setUserToken(currentUserToken);
       fetch('http://localhost:3000/verifyLogin', {
         method: 'POST',
@@ -37,7 +37,7 @@ function App() {
         })
         .catch((err) => console.log(err));
     }
-  }, []);
+  }, [userToken]);
 
   return (
     <>

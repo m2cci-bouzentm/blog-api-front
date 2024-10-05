@@ -6,7 +6,7 @@ import { Post } from '@/types';
 import { useEffect, useState } from 'react';
 
 function truncateText(text: string): string {
-  return text.length > 100 ? text.slice(0, 100) + '...' : text;
+  return text.length > 200 ? text.slice(0, 200) + '...' : text;
 }
 
 const CardComponent = (post: Post): React.ReactElement => (
@@ -24,7 +24,10 @@ const CardComponent = (post: Post): React.ReactElement => (
         </CardHeader>
       </div>
       <CardContent>
-        <div className="text-justify w-[90%]">{truncateText(post.content)}</div>
+        <div
+          className="text-justify w-[90%]"
+          dangerouslySetInnerHTML={{ __html: truncateText(post.content) }}
+        ></div>
       </CardContent>
     </Card>
   </Link>
@@ -43,7 +46,7 @@ const MainComponent = ({ userToken }: MainComponentProps) => {
         setPosts(posts);
       })
       .catch((err) => console.error(err));
-  }, []);
+  }, [userToken]);
 
   return (
     <>
