@@ -40,7 +40,7 @@ const LoginComponent = ({ setUserToken, setCurrentUser, setIsLoggedIn }: LoginCo
       return setLogInError(logInRes);
     }
 
-    localStorage.setItem('userToken', logInRes.token);
+    localStorage.setItem('authorToken', logInRes.token);
     setUserToken(logInRes.token);
     setLogInError(null);
     setCurrentUser(logInRes.user);

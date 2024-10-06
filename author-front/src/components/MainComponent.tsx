@@ -1,6 +1,6 @@
 import { Post } from '@/types';
 import { useEffect, useState } from 'react';
-import CardPostComponents from './CardPostComponents';
+import CardPostComponent from './CardPostComponent';
 
 interface MainComponentProps {
   userToken: string | null;
@@ -28,7 +28,7 @@ const MainComponent = ({ userToken }: MainComponentProps) => {
       <div className="cards-container grid lg:justify-items-center grid-cols-1 lg:grid-cols-2 gap-y-8">
         {posts &&
           posts.map((post) => (
-            <CardPostComponents
+            <CardPostComponent
               key={post.id}
               post={post}
               userToken={userToken}

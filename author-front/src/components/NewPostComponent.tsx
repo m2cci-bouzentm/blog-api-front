@@ -4,7 +4,7 @@ import { Form, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User } from '@/types';
+import { User, validationError } from '@/types';
 import { Editor } from '@tinymce/tinymce-react';
 import { Editor as TinyMCEEditorType } from 'tinymce';
 
@@ -12,20 +12,14 @@ interface NewPostComponentProps {
   userToken: string | null;
   currentUser: User | null;
 }
-interface CreatePostError {
-  msg: string;
-  location?: string;
-  path?: string;
-  type?: string;
-  value?: string;
-}
+
 const NewPostComponent = ({ userToken, currentUser }: NewPostComponentProps) => {
   const titleRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef<TinyMCEEditorType | null>(null);
   const isPublishedRef = useRef<HTMLInputElement>(null);
   const thumbnailUrlRef = useRef<HTMLInputElement>(null);
 
-  const [createPostError, setCreatePostError] = useState<CreatePostError | null>(null);
+  const [createPostError, setCreatePostError] = useState<validationError | null>(null);
 
   const form = useForm();
 

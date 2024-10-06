@@ -9,19 +9,19 @@ function truncateText(text: string): string {
   return text.length > 200 ? text.slice(0, 200) + '...' : text;
 }
 
-interface CardPostComponentsProps {
+interface CardPostComponentProps {
   post: Post;
   userToken: string | null;
   isPostChange: boolean;
   setIsPostChange: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const CardPostComponents = ({
+const CardPostComponent = ({
   post,
   userToken,
   isPostChange,
   setIsPostChange,
-}: CardPostComponentsProps) => {
+}: CardPostComponentProps) => {
   const [isPostMenu, setIsPostMenu] = useState<boolean>(false);
   const isPublishedRef = useRef<HTMLDivElement>(null);
 
@@ -73,7 +73,7 @@ const CardPostComponents = ({
         className="z-10 text-xl cursor-pointer text-black absolute right-7 md:right-10 lg:right-2 top-2 transition-all hover:scale-110"
       />
       {isPostMenu && (
-        <div className="comment-menu absolute right-[10%] flex flex-col items-center text-sm rounded-lg bg-[#f3f4f6e9]">
+        <div className="comment-menu absolute right-[10%] flex flex-col items-center text-sm rounded-lg bg-[#f3f4f6f9]">
           <div
             onClick={handlePostEdit}
             className="w-full p-2 pr-8 rounded-lg cursor-pointer hover:bg-gray-200"
@@ -99,7 +99,13 @@ const CardPostComponents = ({
         <Card className="p-3 md:p-6 w-[95%] lg:w-[400px] h-[300px] cursor-pointer transition-all">
           <div className="flex items-center">
             <Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarImage
+                src={
+                  post.author?.avatarUrl?.length
+                    ? post.author?.avatarUrl
+                    : 'https://github.com/shadcn.png'
+                }
+              />
             </Avatar>
             <CardHeader>
               <CardTitle>{post.title}</CardTitle>
@@ -122,4 +128,4 @@ const CardPostComponents = ({
   );
 };
 
-export default CardPostComponents;
+export default CardPostComponent;

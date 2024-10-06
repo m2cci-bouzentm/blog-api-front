@@ -4,7 +4,7 @@ import { Form, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Post, User } from '@/types';
+import { Post, User, validationError } from '@/types';
 import { Editor } from '@tinymce/tinymce-react';
 import { Editor as TinyMCEEditorType } from 'tinymce';
 
@@ -12,20 +12,14 @@ interface EditPostComponentProps {
   userToken: string | null;
   currentUser: User | null;
 }
-interface EditPostError {
-  msg: string;
-  location?: string;
-  path?: string;
-  type?: string;
-  value?: string;
-}
+
 const EditPostComponent = ({ userToken, currentUser }: EditPostComponentProps) => {
   const titleRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef<TinyMCEEditorType | null>(null);
   // const isPublishedRef = useRef<HTMLInputElement>(null);
   const thumbnailUrlRef = useRef<HTMLInputElement>(null);
 
-  const [editPostError, setEditPostError] = useState<EditPostError | null>(null);
+  const [editPostError, setEditPostError] = useState<validationError | null>(null);
 
   const form = useForm();
 
@@ -127,15 +121,6 @@ const EditPostComponent = ({ userToken, currentUser }: EditPostComponentProps) =
             }}
           />
         </FormItem>
-        {/* <FormItem>
-          <FormLabel htmlFor="isPublished"> You want to publish it ?</FormLabel>
-          <Input
-            defaultChecked={post.isPublished}
-            type="checkbox"
-            name="isPublished"
-            ref={isPublishedRef}
-          />
-        </FormItem> */}
         {editPostError && <FormMessage>{editPostError.msg}</FormMessage>}
         <Button onClick={handleEditPost}>Edit Post</Button>
       </form>

@@ -31,3 +31,11 @@ export interface User {
   exp?: number;
   iat?: number;
 }
+
+export interface validationError {
+  msg: string;
+  location?: string;
+  path?: string;
+  type?: string;
+  value?: string;
+}

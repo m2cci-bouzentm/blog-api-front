@@ -4,9 +4,7 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
 } from '@/components/ui/navigation-menu';
-
 import { BrowserRouter as Router, Route, Link, Routes, Navigate } from 'react-router-dom';
-
 import MainComponent from './components/MainComponent';
 import LoginComponent from './components/LoginComponent';
 import SignUpComponent from './components/SignUpComponent';
@@ -16,9 +14,8 @@ import PostComponent from './components/PostComponent';
 import { User } from './types';
 import NewPostComponent from './components/NewPostComponent';
 import EditPostComponent from './components/EditPostComponent';
+import SettingsComponent from './components/SettingsComponent';
 
-// TODO 1. make author can manage all comments publish && unpublish posts
-// TODO 2. add settings page to update username, email, pw and profile picture
 // Attached user token to each request except for logging in and signing up
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -26,12 +23,13 @@ function App() {
   const [userToken, setUserToken] = useState<string | null>(null);
 
   useEffect(() => {
-    const currentUserToken = localStorage.getItem('userToken');
+    const currentUserToken = localStorage.getItem('authorToken');
+
     if (currentUserToken) {
       setUserToken(currentUserToken);
       fetch('http://localhost:3000/verifyLogin', {
         method: 'POST',
-        headers: { Authorization: `Bearer ${userToken}` },
+        headers: { Authorization: `Bearer ${currentUserToken}` },
       })
         .then((res) => res.json())
         .then((user) => {
@@ -40,6 +38,21 @@ function App() {
         })
         .catch((err) => console.log(err));
     }
+  }, []);
+
+  useEffect(() => {
+    if (!currentUser) return;
+    const currentUserToken = localStorage.getItem('authorToken');
+    fetch('http://localhost:3000/verifyLogin', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${currentUserToken}` },
+    })
+      .then((res) => res.json())
+      .then((user) => {
+        setIsLoggedIn(true);
+        setCurrentUser(user);
+      })
+      .catch((err) => console.log(err));
   }, [userToken]);
 
   return (
@@ -69,18 +82,18 @@ function App() {
 
         <main className="w-[90%] sm:w-[75%] xl:w-[60%] flex flex-col m-auto space-y-8">
           <Routes>
-            <Route path="/" element={<Navigate to="/posts" />}></Route>
-            <Route path="/posts" element={<MainComponent userToken={userToken} />}></Route>
+            <Route path="/" element={<Navigate to="/posts" />} />
+            <Route path="/posts" element={<MainComponent userToken={userToken} />} />
             {currentUser?.role === 'AUTHOR' && (
               <>
                 <Route
                   path="/posts/new"
                   element={<NewPostComponent userToken={userToken} currentUser={currentUser} />}
-                ></Route>
+                />
                 <Route
                   path="/posts/edit"
                   element={<EditPostComponent userToken={userToken} currentUser={currentUser} />}
-                ></Route>
+                />
               </>
             )}
             <Route
@@ -92,7 +105,22 @@ function App() {
                   currentUser={currentUser}
                 />
               }
-            ></Route>
+            />
+
+            {isLoggedIn && (
+              <Route
+                path="/settings/"
+                element={
+                  <SettingsComponent
+                    currentUser={currentUser}
+                    userToken={userToken}
+                    setCurrentUser={setCurrentUser}
+                    setUserToken={setUserToken}
+                  />
+                }
+              />
+            )}
+
             {/* Access these routes only if user wasn't logged in */}
             {!isLoggedIn && (
               <>
