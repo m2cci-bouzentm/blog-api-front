@@ -4,9 +4,7 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
 } from '@/components/ui/navigation-menu';
-
 import { BrowserRouter as Router, Route, Link, Routes, Navigate } from 'react-router-dom';
-
 import MainComponent from './components/MainComponent';
 import LoginComponent from './components/LoginComponent';
 import SignUpComponent from './components/SignUpComponent';
@@ -14,8 +12,8 @@ import AuthenticatedNav from './components/AuthenticatedNav';
 import NotAuthenticatedNav from './components/NotAuthenticatedNav';
 import PostComponent from './components/PostComponent';
 import { User } from './types';
+import SettingsComponent from './components/SettingsComponent';
 
-// TODO add settings page to update username, email, pw and profile picture
 // Attached user token to each request except for logging in and signing up
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -24,19 +22,38 @@ function App() {
 
   useEffect(() => {
     const currentUserToken = localStorage.getItem('userToken');
+    console.log(currentUserToken);
+
     if (currentUserToken) {
       setUserToken(currentUserToken);
       fetch('http://localhost:3000/verifyLogin', {
         method: 'POST',
-        headers: { Authorization: `Bearer ${userToken}` },
+        headers: { Authorization: `Bearer ${currentUserToken}` },
       })
         .then((res) => res.json())
         .then((user) => {
+          console.log(user);
+
           setIsLoggedIn(true);
           setCurrentUser(user);
         })
         .catch((err) => console.log(err));
     }
+  }, []);
+
+  useEffect(() => {
+    if (!currentUser) return;
+    const currentUserToken = localStorage.getItem('userToken');
+    fetch('http://localhost:3000/verifyLogin', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${currentUserToken}` },
+    })
+      .then((res) => res.json())
+      .then((user) => {
+        setIsLoggedIn(true);
+        setCurrentUser(user);
+      })
+      .catch((err) => console.log(err));
   }, [userToken]);
 
   return (
@@ -66,8 +83,8 @@ function App() {
 
         <main className="w-[90%] sm:w-[75%] xl:w-[60%] flex flex-col m-auto space-y-8">
           <Routes>
-            <Route path="/" element={<Navigate to="/posts" />}></Route>
-            <Route path="/posts" element={<MainComponent userToken={userToken} />}></Route>
+            <Route path="/" element={<Navigate to="/posts" />} />
+            <Route path="/posts" element={<MainComponent userToken={userToken} />} />
             <Route
               path="/posts/:id"
               element={
@@ -77,7 +94,21 @@ function App() {
                   currentUser={currentUser}
                 />
               }
-            ></Route>
+            />
+
+            {isLoggedIn && (
+              <Route
+                path="/settings/"
+                element={
+                  <SettingsComponent
+                    currentUser={currentUser}
+                    userToken={userToken}
+                    setCurrentUser={setCurrentUser}
+                    setUserToken={setUserToken}
+                  />
+                }
+              />
+            )}
 
             {/* Access these routes only if user wasn't logged in */}
             {!isLoggedIn && (

@@ -24,10 +24,18 @@ export interface User {
   username: string;
   email: string;
   password: string;
-  ROLE: string;
+  role: string;
   comments: Comment[];
   posts: Post[];
   avatarUrl?: string;
   exp?: number;
   iat?: number;
+}
+
+export interface validationError {
+  msg: string;
+  location?: string;
+  path?: string;
+  type?: string;
+  value?: string;
 }

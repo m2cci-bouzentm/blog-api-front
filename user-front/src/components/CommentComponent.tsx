@@ -80,7 +80,13 @@ const CommentComponent = ({
       className="comment-container flex items-center space-x-4 !my-8 relative"
     >
       <Avatar>
-        <AvatarImage src="https://github.com/shadcn.png" />
+        <AvatarImage
+          src={
+            comment.author?.avatarUrl?.length
+              ? comment.author?.avatarUrl
+              : 'https://github.com/shadcn.png'
+          }
+        />
       </Avatar>
       <div>
         <div className="text-gray-500 text-sm">

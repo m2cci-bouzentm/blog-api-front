@@ -4,19 +4,12 @@ import { Form, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User } from '@/types';
+import { User, validationError } from '@/types';
 
 interface SignUpComponentProps {
   setUserToken: (token: string) => void;
   setCurrentUser: (user: User) => void;
   setIsLoggedIn: (userState: boolean) => void;
-}
-interface SignUpError {
-  msg: string;
-  location?: string;
-  path?: string;
-  type?: string;
-  value?: string;
 }
 
 const SignUpComponent = ({ setUserToken, setCurrentUser, setIsLoggedIn }: SignUpComponentProps) => {
@@ -25,7 +18,7 @@ const SignUpComponent = ({ setUserToken, setCurrentUser, setIsLoggedIn }: SignUp
   const passwordRef = useRef<HTMLInputElement>(null);
   const passwordConfirmationRef = useRef<HTMLInputElement>(null);
 
-  const [signUpError, setSignUpError] = useState<SignUpError | null>(null);
+  const [signUpError, setSignUpError] = useState<validationError | null>(null);
 
   const form = useForm();
 
