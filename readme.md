@@ -73,7 +73,7 @@ This project consists of two separate applications: one for authors to manage bl
 
 ## Technologies Used
 
-- **Frontend**: React, TypeScript, Tailwind CSS, Vite
+- **Frontend**: React, React-router, TypeScript, Shadcn, Tailwind CSS, Vite
 - **Backend**: Node.js, Express, Prisma, JWT, Express Validator
 - **Authentication**: JSON Web Tokens (JWT)
 - **Editor**: TinyMCE (for rich text editing in posts)
