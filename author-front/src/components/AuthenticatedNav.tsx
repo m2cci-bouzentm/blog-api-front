@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import { User } from '@/types';
 import { IoIosArrowDown } from 'react-icons/io';
+import { validURL } from '@/helpers';
 
 interface AuthenticatedNavProps {
   currentUser: User | null;
@@ -27,7 +28,7 @@ const AuthenticatedNav = ({
       <Avatar>
         <AvatarImage
           src={
-            currentUser?.avatarUrl?.length
+            validURL(currentUser?.avatarUrl || '')
               ? currentUser?.avatarUrl
               : 'https://github.com/shadcn.png'
           }

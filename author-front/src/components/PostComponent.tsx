@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from './ui/button';
 import CommentComponent from './CommentComponent';
 import { Comment, Post, User } from '@/types';
+import { validURL } from '@/helpers';
 
 interface PostComponentProps {
   userToken: string | null;
@@ -89,7 +90,11 @@ const PostComponent = ({ userToken, isLoggedIn, currentUser }: PostComponentProp
       <div className="avatar-box flex items-start space-x-2">
         <Avatar>
           <AvatarImage
-            src={post.author?.avatarUrl ? post.author?.avatarUrl : 'https://github.com/shadcn.png'}
+            src={
+              validURL(post.author?.avatarUrl || '')
+                ? post.author?.avatarUrl
+                : 'https://github.com/shadcn.png'
+            }
           />
         </Avatar>
         <div>
