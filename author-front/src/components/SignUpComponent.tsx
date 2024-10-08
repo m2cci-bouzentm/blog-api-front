@@ -17,6 +17,7 @@ const SignUpComponent = ({ setUserToken, setCurrentUser, setIsLoggedIn }: SignUp
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const passwordConfirmationRef = useRef<HTMLInputElement>(null);
+  const authorKeyRef = useRef<HTMLInputElement>(null);
 
   const [signUpError, setSignUpError] = useState<validationError | null>(null);
 
@@ -30,11 +31,20 @@ const SignUpComponent = ({ setUserToken, setCurrentUser, setIsLoggedIn }: SignUp
     const email = emailRef.current?.value;
     const password = passwordRef.current?.value;
     const passwordConfirmation = passwordConfirmationRef.current?.value;
+    const authorKey = authorKeyRef.current?.value;
 
+    // author key validation, author cant sign without the secret key
+    if (username && email && password && passwordConfirmation) {
+      if (!authorKey) {
+        return setSignUpError({ msg: 'Author key is required' });
+      } else if (authorKey !== import.meta.env.VITE_AUTHOR_KEY) {
+        return setSignUpError({ msg: 'Enter a valid author key' });
+      }
+    }
     const res = await fetch('http://localhost:3000/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, email, password, passwordConfirmation }),
+      body: JSON.stringify({ username, email, password, passwordConfirmation, authorKey }),
     });
 
     const logInRes = await res.json();
@@ -74,6 +84,10 @@ const SignUpComponent = ({ setUserToken, setCurrentUser, setIsLoggedIn }: SignUp
             name="passwordConfirmation"
             ref={passwordConfirmationRef}
           />
+        </FormItem>
+        <FormItem>
+          <FormLabel htmlFor="authorKey">Author key</FormLabel>
+          <Input placeholder="" type="password" name="authorKey" ref={authorKeyRef} />
         </FormItem>
         {signUpError && <FormMessage>{signUpError.msg}</FormMessage>}
         <Button onClick={handleUserSignUp}>Sign Up</Button>
