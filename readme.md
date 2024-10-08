@@ -3,6 +3,8 @@
 - **Author Frontend**: [https://blog-api-front-author.vercel.app](https://blog-api-front-author.vercel.app)
 - **User Frontend**: [https://blog-api-user-front.vercel.app](https://blog-api-user-front.vercel.app)
 
+- **API Repository**: [https://github.com/m2cci-bouzentm/node-blog-api/tree/main](https://github.com/m2cci-bouzentm/node-blog-api/tree/main)
+
 # Blog Website
 
 This project consists of two separate applications: one for authors to manage blog posts and another for users to view and comment on posts. Both applications use a Node.js Express-based API for backend services.
