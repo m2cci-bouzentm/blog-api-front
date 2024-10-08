@@ -9,4 +9,10 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  define: {
+    'process.env': process.env,
+    VITE_API_BASE_URL: process.env.VITE_API_BASE_URL,
+    VITE_AUTHOR_KEY: process.env.VITE_AUTHOR_KEY,
+    VITE_TINY_API: process.env.VITE_TINY_API,
+  },
 });
