@@ -43,17 +43,20 @@ const CommentComponent = ({
       return;
     }
 
-    const res = await fetch(`http://localhost:3000/posts/${post.id}/comments/${comment.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'Application/json',
-        Authorization: `Bearer ${userToken}`,
-      },
-      body: JSON.stringify({
-        content: updatedCommentRef.current?.value,
-        authorId: comment.authorId,
-      }),
-    });
+    const res = await fetch(
+      `${import.meta.env.VITE_API_BASE_URL}/posts/${post.id}/comments/${comment.id}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'Application/json',
+          Authorization: `Bearer ${userToken}`,
+        },
+        body: JSON.stringify({
+          content: updatedCommentRef.current?.value,
+          authorId: comment.authorId,
+        }),
+      }
+    );
     const data = await res.json();
     console.log(data);
 
@@ -61,7 +64,7 @@ const CommentComponent = ({
     closeCommentEditForm();
   };
   const handleCommentDelete = async () => {
-    await fetch(`http://localhost:3000/posts/${post.id}/comments/${comment.id}`, {
+    await fetch(`${import.meta.env.VITE_API_BASE_URL}/posts/${post.id}/comments/${comment.id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'Application/json',

@@ -28,7 +28,7 @@ const LoginComponent = ({ setUserToken, setCurrentUser, setIsLoggedIn }: LoginCo
     const username = usernameRef.current?.value;
     const password = passwordRef.current?.value;
 
-    const res = await fetch('http://localhost:3000/login', {
+    const res = await fetch(import.meta.env.VITE_API_BASE_URL + '/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password }),

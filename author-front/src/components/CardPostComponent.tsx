@@ -33,7 +33,7 @@ const CardPostComponent = ({
     setIsPostMenu(false);
   };
   const handlePostDelete = async () => {
-    await fetch(`http://localhost:3000/posts/${post.id}`, {
+    await fetch(`${import.meta.env.VITE_API_BASE_URL}/posts/${post.id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'Application/json',
@@ -56,7 +56,7 @@ const CardPostComponent = ({
       isPublished = false;
     }
 
-    await fetch(`http://localhost:3000/posts/publish/${post.id}`, {
+    await fetch(`${import.meta.env.VITE_API_BASE_URL}/posts/publish/${post.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${userToken}` },
       body: JSON.stringify({

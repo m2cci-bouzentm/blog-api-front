@@ -28,7 +28,7 @@ const PostComponent = ({ userToken, isLoggedIn, currentUser }: PostComponentProp
       navigate('/');
     }
 
-    fetch(`http://localhost:3000/posts/${id}`, {
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/posts/${id}`, {
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
@@ -52,7 +52,7 @@ const PostComponent = ({ userToken, isLoggedIn, currentUser }: PostComponentProp
     }
 
     try {
-      const res = await fetch(`http://localhost:3000/posts/${post?.id}/comments`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/posts/${post?.id}/comments`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

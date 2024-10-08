@@ -33,7 +33,7 @@ const SettingsComponent = ({
 
   const handleUsernameChange = async () => {
     const username = usernameRef?.current?.value;
-    const res = await fetch('http://localhost:3000/settings/username', {
+    const res = await fetch(import.meta.env.VITE_API_BASE_URL + '/settings/username', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${userToken}` },
       body: JSON.stringify({
@@ -59,7 +59,7 @@ const SettingsComponent = ({
 
   const handleEmailChange = async () => {
     const email = emailRef?.current?.value;
-    const res = await fetch('http://localhost:3000/settings/email', {
+    const res = await fetch(import.meta.env.VITE_API_BASE_URL + '/settings/email', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${userToken}` },
       body: JSON.stringify({
@@ -86,7 +86,7 @@ const SettingsComponent = ({
   const handlePasswordChange = async () => {
     const password = passwordRef?.current?.value;
     const passwordConfirmation = passwordConfirmationRef?.current?.value;
-    const res = await fetch('http://localhost:3000/settings/password', {
+    const res = await fetch(import.meta.env.VITE_API_BASE_URL + '/settings/password', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${userToken}` },
       body: JSON.stringify({
@@ -114,7 +114,7 @@ const SettingsComponent = ({
 
   const handleAvatarUrlChange = async () => {
     const avatarUrl = avatarUrlRef?.current?.value;
-    const res = await fetch('http://localhost:3000/settings/avatarUrl', {
+    const res = await fetch(import.meta.env.VITE_API_BASE_URL + '/settings/avatarUrl', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${userToken}` },
       body: JSON.stringify({

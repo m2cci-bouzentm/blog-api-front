@@ -38,7 +38,7 @@ const EditPostComponent = ({ userToken, currentUser }: EditPostComponentProps) =
       return;
     }
 
-    const res = await fetch(`http://localhost:3000/posts/${post.id}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/posts/${post.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${userToken}` },
       body: JSON.stringify({

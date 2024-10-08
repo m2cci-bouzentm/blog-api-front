@@ -26,7 +26,7 @@ function App() {
 
     if (currentUserToken) {
       setUserToken(currentUserToken);
-      fetch('http://localhost:3000/verifyLogin', {
+      fetch(import.meta.env.VITE_API_BASE_URL + '/verifyLogin', {
         method: 'POST',
         headers: { Authorization: `Bearer ${currentUserToken}` },
       })
@@ -44,7 +44,7 @@ function App() {
   useEffect(() => {
     if (!currentUser) return;
     const currentUserToken = localStorage.getItem('userToken');
-    fetch('http://localhost:3000/verifyLogin', {
+    fetch(import.meta.env.VITE_API_BASE_URL + '/verifyLogin', {
       method: 'POST',
       headers: { Authorization: `Bearer ${currentUserToken}` },
     })

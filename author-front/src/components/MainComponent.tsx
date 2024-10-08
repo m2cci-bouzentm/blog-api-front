@@ -10,7 +10,7 @@ const MainComponent = ({ userToken }: MainComponentProps) => {
   const [isPostChange, setIsPostChange] = useState<boolean>(false);
 
   useEffect(() => {
-    fetch('http://localhost:3000/posts', { headers: { Authorization: `Bearer ${userToken}` } })
+    fetch(import.meta.env.VITE_API_BASE_URL+'/posts', { headers: { Authorization: `Bearer ${userToken}` } })
       .then((res) => res.json())
       .then((posts) => {
         setPosts(posts);
