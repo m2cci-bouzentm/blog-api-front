@@ -10,9 +10,6 @@ export default defineConfig({
     },
   },
   define: {
-    'process.env': process.env,
-    VITE_API_BASE_URL: process.env.VITE_API_BASE_URL,
-    VITE_AUTHOR_KEY: process.env.VITE_AUTHOR_KEY,
-    VITE_TINY_API: process.env.VITE_TINY_API,
+    __APP_ENV__: process.env.VITE_VERCEL_ENV,
   },
 });
