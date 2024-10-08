@@ -83,10 +83,10 @@ const EditPostComponent = ({ userToken, currentUser }: EditPostComponentProps) =
           <Editor
             apiKey={import.meta.env.VITE_TINY_API}
             initialValue={post.content}
-            onEditorChange={(evt, editor) => {
+            onEditorChange={(_, editor) => {
               contentRef.current = editor;
             }}
-            onInit={(evt, editor) => {
+            onInit={(_, editor) => {
               contentRef.current = editor;
             }}
             init={{

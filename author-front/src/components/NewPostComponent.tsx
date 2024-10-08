@@ -75,7 +75,7 @@ const NewPostComponent = ({ userToken, currentUser }: NewPostComponentProps) => 
           <FormLabel htmlFor="content">Content</FormLabel>
           <Editor
             apiKey={import.meta.env.VITE_TINY_API}
-            onEditorChange={(evt, editor) => {
+            onEditorChange={(_, editor) => {
               contentRef.current = editor;
             }}
             initialValue="<p>Start crafting your blog post right now !</p>"
