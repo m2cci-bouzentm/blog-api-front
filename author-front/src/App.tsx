@@ -85,7 +85,13 @@ function App() {
             <Route path="/" element={<Navigate to="/posts" />} />
             <Route
               path="/posts"
-              element={<MainComponent isLoggedIn={isLoggedIn} userToken={userToken} />}
+              element={
+                <MainComponent
+                  currentUser={currentUser}
+                  isLoggedIn={isLoggedIn}
+                  userToken={userToken}
+                />
+              }
             />
             {currentUser?.role === 'AUTHOR' && (
               <>

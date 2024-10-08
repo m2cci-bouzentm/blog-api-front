@@ -1,12 +1,13 @@
-import { Post } from '@/types';
+import { Post, User } from '@/types';
 import { useEffect, useState } from 'react';
 import CardPostComponent from './CardPostComponent';
 
 interface MainComponentProps {
+  currentUser: User | null;
   isLoggedIn: boolean;
   userToken: string | null;
 }
-const MainComponent = ({ isLoggedIn, userToken }: MainComponentProps) => {
+const MainComponent = ({ currentUser, isLoggedIn, userToken }: MainComponentProps) => {
   const [posts, setPosts] = useState<Post[] | null>(null);
   const [isPostChange, setIsPostChange] = useState<boolean>(false);
 
@@ -34,6 +35,7 @@ const MainComponent = ({ isLoggedIn, userToken }: MainComponentProps) => {
             <CardPostComponent
               key={post.id}
               post={post}
+              currentUser={currentUser}
               isLoggedIn={isLoggedIn}
               userToken={userToken}
               isPostChange={isPostChange}

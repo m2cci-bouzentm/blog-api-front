@@ -3,7 +3,7 @@ import { CiSettings } from 'react-icons/ci';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRef, useState } from 'react';
-import { Post } from '@/types';
+import { Post, User } from '@/types';
 import { validURL } from '@/helpers';
 
 function truncateText(text: string): string {
@@ -11,16 +11,18 @@ function truncateText(text: string): string {
 }
 
 interface CardPostComponentProps {
-  isLoggedIn: boolean;
   post: Post;
+  currentUser: User | null;
+  isLoggedIn: boolean;
   userToken: string | null;
   isPostChange: boolean;
   setIsPostChange: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CardPostComponent = ({
-  isLoggedIn,
   post,
+  currentUser,
+  isLoggedIn,
   userToken,
   isPostChange,
   setIsPostChange,
@@ -71,7 +73,7 @@ const CardPostComponent = ({
   };
   return (
     <div className="relative">
-      {isLoggedIn && (
+      {isLoggedIn && currentUser?.role === 'AUTHOR' && (
         <CiSettings
           onClick={() => setIsPostMenu(!isPostMenu)}
           className="z-10 text-xl cursor-pointer text-black absolute right-7 md:right-10 lg:right-2 top-2 transition-all hover:scale-110"
