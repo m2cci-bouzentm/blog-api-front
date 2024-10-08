@@ -83,7 +83,10 @@ function App() {
         <main className="w-[90%] sm:w-[75%] xl:w-[60%] flex flex-col m-auto space-y-8">
           <Routes>
             <Route path="/" element={<Navigate to="/posts" />} />
-            <Route path="/posts" element={<MainComponent userToken={userToken} />} />
+            <Route
+              path="/posts"
+              element={<MainComponent isLoggedIn={isLoggedIn} userToken={userToken} />}
+            />
             {currentUser?.role === 'AUTHOR' && (
               <>
                 <Route

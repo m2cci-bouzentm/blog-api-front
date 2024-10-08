@@ -11,6 +11,7 @@ function truncateText(text: string): string {
 }
 
 interface CardPostComponentProps {
+  isLoggedIn: boolean;
   post: Post;
   userToken: string | null;
   isPostChange: boolean;
@@ -18,6 +19,7 @@ interface CardPostComponentProps {
 }
 
 const CardPostComponent = ({
+  isLoggedIn,
   post,
   userToken,
   isPostChange,
@@ -69,10 +71,12 @@ const CardPostComponent = ({
   };
   return (
     <div className="relative">
-      <CiSettings
-        onClick={() => setIsPostMenu(!isPostMenu)}
-        className="z-10 text-xl cursor-pointer text-black absolute right-7 md:right-10 lg:right-2 top-2 transition-all hover:scale-110"
-      />
+      {isLoggedIn && (
+        <CiSettings
+          onClick={() => setIsPostMenu(!isPostMenu)}
+          className="z-10 text-xl cursor-pointer text-black absolute right-7 md:right-10 lg:right-2 top-2 transition-all hover:scale-110"
+        />
+      )}
       {isPostMenu && (
         <div className="comment-menu absolute right-[10%] flex flex-col items-center text-sm rounded-lg bg-[#f3f4f6f9]">
           <div

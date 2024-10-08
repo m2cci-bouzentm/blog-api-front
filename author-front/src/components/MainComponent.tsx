@@ -3,14 +3,17 @@ import { useEffect, useState } from 'react';
 import CardPostComponent from './CardPostComponent';
 
 interface MainComponentProps {
+  isLoggedIn: boolean;
   userToken: string | null;
 }
-const MainComponent = ({ userToken }: MainComponentProps) => {
+const MainComponent = ({ isLoggedIn, userToken }: MainComponentProps) => {
   const [posts, setPosts] = useState<Post[] | null>(null);
   const [isPostChange, setIsPostChange] = useState<boolean>(false);
 
   useEffect(() => {
-    fetch(import.meta.env.VITE_API_BASE_URL+'/posts', { headers: { Authorization: `Bearer ${userToken}` } })
+    fetch(import.meta.env.VITE_API_BASE_URL + '/posts', {
+      headers: { Authorization: `Bearer ${userToken}` },
+    })
       .then((res) => res.json())
       .then((posts) => {
         setPosts(posts);
@@ -31,6 +34,7 @@ const MainComponent = ({ userToken }: MainComponentProps) => {
             <CardPostComponent
               key={post.id}
               post={post}
+              isLoggedIn={isLoggedIn}
               userToken={userToken}
               isPostChange={isPostChange}
               setIsPostChange={setIsPostChange}
