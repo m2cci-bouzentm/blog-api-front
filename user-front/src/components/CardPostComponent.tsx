@@ -2,6 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Link } from 'react-router-dom';
 import { Post } from '@/types';
+import { validURL } from '@/helpers';
 
 function truncateText(text: string): string {
   return text.length > 200 ? text.slice(0, 200) + '...' : text;
@@ -19,7 +20,7 @@ const CardPostComponent = ({ post }: CardPostComponentProps) => {
           <Avatar>
             <AvatarImage
               src={
-                post.author?.avatarUrl?.length
+                validURL(post.author?.avatarUrl || '')
                   ? post.author?.avatarUrl
                   : 'https://github.com/shadcn.png'
               }

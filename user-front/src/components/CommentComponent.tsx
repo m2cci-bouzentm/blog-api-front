@@ -3,6 +3,7 @@ import { Comment, Post, User } from '@/types';
 import { useRef, useState } from 'react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
+import { validURL } from '@/helpers';
 
 interface CommentComponentProps {
   userToken: string | null;
@@ -82,7 +83,7 @@ const CommentComponent = ({
       <Avatar>
         <AvatarImage
           src={
-            comment.author?.avatarUrl?.length
+            validURL(comment.author?.avatarUrl || '')
               ? comment.author?.avatarUrl
               : 'https://github.com/shadcn.png'
           }
