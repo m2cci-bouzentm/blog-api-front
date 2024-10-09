@@ -159,7 +159,7 @@ function App() {
           </Routes>
         </main>
 
-        <footer className="mt-[400px]"></footer>
+        <footer className="py-[50px]"></footer>
       </Router>
     </>
   );

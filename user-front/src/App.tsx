@@ -22,7 +22,6 @@ function App() {
 
   useEffect(() => {
     const currentUserToken = localStorage.getItem('userToken');
-    console.log(currentUserToken);
 
     if (currentUserToken) {
       setUserToken(currentUserToken);
@@ -32,8 +31,6 @@ function App() {
       })
         .then((res) => res.json())
         .then((user) => {
-          console.log(user);
-
           setIsLoggedIn(true);
           setCurrentUser(user);
         })
@@ -140,7 +137,7 @@ function App() {
           </Routes>
         </main>
 
-        <footer className="mt-[400px]"></footer>
+        <footer className="py-[50px]"></footer>
       </Router>
     </>
   );
