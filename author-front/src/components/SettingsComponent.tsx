@@ -125,7 +125,7 @@ const SettingsComponent = ({
     const data = await res.json();
 
     if (typeof data.errors !== 'undefined') {
-      return setEmailError(data.errors[0]);
+      return setAvatarUrlError(data.errors[0]);
     }
 
     if (avatarUrlRef.current) {
