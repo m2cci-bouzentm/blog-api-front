@@ -52,7 +52,7 @@ const SettingsComponent = ({
     }
 
     setUsernameError(null);
-    setCurrentUser(data.userWithoutPw);
+    setCurrentUser(data.user);
     setUserToken(data.token);
     localStorage.setItem('authorToken', data.token);
   };
@@ -78,7 +78,7 @@ const SettingsComponent = ({
     }
 
     setEmailError(null);
-    setCurrentUser(data.userWithoutPw);
+    setCurrentUser(data.user);
     setUserToken(data.token);
     localStorage.setItem('authorToken', data.token);
   };
@@ -107,7 +107,7 @@ const SettingsComponent = ({
     }
 
     setPasswordError(null);
-    setCurrentUser(data.userWithoutPw);
+    setCurrentUser(data.user);
     setUserToken(data.token);
     localStorage.setItem('authorToken', data.token);
   };
@@ -133,7 +133,7 @@ const SettingsComponent = ({
     }
 
     setAvatarUrlError(null);
-    setCurrentUser(data.userWithoutPw);
+    setCurrentUser(data.user);
     setUserToken(data.token);
     localStorage.setItem('authorToken', data.token);
   };

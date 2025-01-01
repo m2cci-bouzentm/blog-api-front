@@ -31,6 +31,8 @@ const MainComponent = ({ currentUser, isLoggedIn, userToken }: MainComponentProp
     })
       .then((res) => res.json())
       .then((posts) => {
+        console.log(posts);
+        
         setPosts(posts);
         setNumberOfPages(Math.ceil(posts.length / postsPerPage));
       })

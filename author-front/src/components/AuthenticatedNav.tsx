@@ -60,7 +60,7 @@ const AuthenticatedNav = ({
           </div>
         )}
       </div>
-      {currentUser?.role === 'AUTHOR' && <Link to="/posts/new">New Post</Link>}
+      {currentUser?.role === 'ROLE_AUTHOR' && <Link to="/posts/new">New Post</Link>}
     </div>
   );
 };

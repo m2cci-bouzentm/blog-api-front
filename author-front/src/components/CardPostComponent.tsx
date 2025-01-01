@@ -73,7 +73,7 @@ const CardPostComponent = ({
   };
   return (
     <div className="relative">
-      {isLoggedIn && currentUser?.role === 'AUTHOR' && (
+      {isLoggedIn && currentUser?.role === 'ROLE_AUTHOR' && (
         <CiSettings
           onClick={() => setIsPostMenu(!isPostMenu)}
           className="z-10 text-xl cursor-pointer text-black absolute right-7 md:right-10 lg:right-2 top-2 transition-all hover:scale-110"

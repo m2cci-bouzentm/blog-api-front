@@ -103,7 +103,7 @@ const CommentComponent = ({
         <p> {comment.content}</p>
       </div>
 
-      {currentUser?.role === 'AUTHOR' && (
+      {currentUser?.role === 'ROLE_AUTHOR' && (
         <div
           onClick={toggleMenu}
           className="comment-setting absolute right-0 font-bold cursor-pointer text-xl hover:scale-[105%]"
@@ -112,7 +112,7 @@ const CommentComponent = ({
         </div>
       )}
 
-      {isCommentMenu && currentUser?.role === 'AUTHOR' && (
+      {isCommentMenu && currentUser?.role === 'ROLE_AUTHOR' && (
         <div className="comment-menu absolute right-[10%] flex flex-col items-center text-sm rounded-lg bg-[#f3f4f6b5]">
           <div
             onClick={openCommentEditForm}

@@ -51,7 +51,8 @@ const EditPostComponent = ({ userToken, currentUser }: EditPostComponentProps) =
     });
 
     const logInRes = await res.json();
-
+    console.log(logInRes);
+    
     // add post Errors display
     if (typeof logInRes.errors !== 'undefined') {
       return setEditPostError(logInRes.errors[0]);

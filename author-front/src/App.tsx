@@ -93,7 +93,7 @@ function App() {
                 />
               }
             />
-            {currentUser?.role === 'AUTHOR' && (
+            {currentUser?.role === 'ROLE_AUTHOR' && (
               <>
                 <Route
                   path="/posts/new"

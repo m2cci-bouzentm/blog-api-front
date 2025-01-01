@@ -34,13 +34,13 @@ const SignUpComponent = ({ setUserToken, setCurrentUser, setIsLoggedIn }: SignUp
     const authorKey = authorKeyRef.current?.value;
 
     // author key validation, author cant sign without the secret key
-    if (username && email && password && passwordConfirmation) {
-      if (!authorKey) {
-        return setSignUpError({ msg: 'Author key is required' });
-      } else if (authorKey !== import.meta.env.VITE_AUTHOR_KEY) {
-        return setSignUpError({ msg: 'Enter a valid author key' });
-      }
-    }
+    // if (username && email && password && passwordConfirmation) {
+    //   if (!authorKey) {
+    //     return setSignUpError({ msg: 'Author key is required' });
+    //   } else if (authorKey !== import.meta.env.VITE_AUTHOR_KEY) {
+    //     return setSignUpError({ msg: 'Enter a valid author key' });
+    //   }
+    // }
     const res = await fetch(import.meta.env.VITE_API_BASE_URL + '/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
