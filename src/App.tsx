@@ -96,6 +96,7 @@ function App() {
                   currentUser={currentUser}
                   isLoggedIn={isLoggedIn}
                   userToken={userToken}
+                  setUserToken={setUserToken}
                 />
               }
             />

@@ -15,8 +15,9 @@ interface MainComponentProps {
   currentUser: User | null;
   isLoggedIn: boolean;
   userToken: string | null;
+  setUserToken: React.Dispatch<React.SetStateAction<string| null>>;
 }
-const MainComponent = ({ currentUser, isLoggedIn, userToken }: MainComponentProps) => {
+const MainComponent = ({ currentUser, isLoggedIn, userToken, setUserToken }: MainComponentProps) => {
   const [posts, setPosts] = useState<Post[] | null>(null);
   const [isPostChange, setIsPostChange] = useState<boolean>(false);
 
@@ -36,7 +37,11 @@ const MainComponent = ({ currentUser, isLoggedIn, userToken }: MainComponentProp
         setPosts(posts);
         setNumberOfPages(Math.ceil(posts.length / postsPerPage));
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        localStorage.removeItem('authorToken');
+        setUserToken(null);
+      });
   }, [userToken, isPostChange]);
 
   useEffect(() => {
