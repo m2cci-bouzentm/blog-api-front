@@ -36,7 +36,10 @@ function App() {
           setIsLoggedIn(true);
           setCurrentUser(user);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err);
+          localStorage.removeItem('authorToken');
+        });
     }
   }, []);
 
@@ -52,7 +55,10 @@ function App() {
         setIsLoggedIn(true);
         setCurrentUser(user);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        localStorage.removeItem('authorToken');
+      });
   }, [userToken]);
 
   return (
