@@ -3,7 +3,9 @@
 - **Author Frontend**: [https://blog-api-front-author.vercel.app](https://blog-api-front-author.vercel.app)
 - **User Frontend**: [https://blog-api-user-front.vercel.app](https://blog-api-user-front.vercel.app)
 
-- **API Repository**: [https://github.com/m2cci-bouzentm/node-blog-api/tree/main](https://github.com/m2cci-bouzentm/node-blog-api/tree/main)
+## API Repository**
+- **Node.js API (Original): [https://github.com/m2cci-bouzentm/node-blog-api/tree/main](https://github.com/m2cci-bouzentm/node-blog-api/tree/main)
+- **Spring Boot API (Migrated): [https://github.com/m2cci-bouzentm/springboot-blog-api](https://github.com/m2cci-bouzentm/springboot-blog-api)
 
 # Blog Website
 
